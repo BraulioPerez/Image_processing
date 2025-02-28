@@ -1,8 +1,9 @@
 """
-
+PIL for image processing
+math for calculating specific data
 """
+
 from PIL import Image
-import sys
 import math
 
 
@@ -139,7 +140,6 @@ def apply_sobel(image) -> list:
         new_image.append(new_row)
 
     return new_image
-
 
 def apply_median_filter(image, kernel) -> list:
     """
