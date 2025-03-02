@@ -1,22 +1,21 @@
 import time
-from process_image_python import (
+from process_image_numpy import (
     read_image, 
     save_image, 
     create_gaussian_kernel,
-    apply_gaussian,
+    apply_filter,
     apply_sobel,
     apply_median_filter
 )
 
 def test_filters() -> None:
-    
     """Unit test to run all filters from one image input"""
 
     # Input/output paths
     input_path = r"C:\Users\marit\OneDrive\Programming\UPY programming stuff\Programming Quarter 7 stuff\UPY High Performance Computing\EA2 Images Processing\image.jpeg"
-    output_sobel = "output_sobel.jpg"
-    output_gaussian = "output_gaussian.jpg"
-    output_noise_reduction = "output_noise_reduction.jpg"
+    output_sobel = "output_sobel_numpy.jpg"
+    output_gaussian = "output_gaussian_numpy.jpg"
+    output_noise_reduction = "output_noise_reduction_numpy.jpg"
     
     # Read the input image
     print("Reading image...")
@@ -34,16 +33,15 @@ def test_filters() -> None:
     print("\nTesting Gaussian filter...")
     start_time = time.time()
     kernel = create_gaussian_kernel(5, sigma=1)  # 5x5 kernel
-    gaussian_image = apply_gaussian(image, kernel)
+    gaussian_image = apply_filter(image, kernel)
     gaussian_time = time.time() - start_time
     save_image(gaussian_image, output_gaussian)
     print(f"Gaussian filter processing time: {gaussian_time:.4f} seconds")
 
-
     # Test median noise-reduction filter
     print("\nTesting Median noise-reduction filter...")
     start_time = time.time()
-    noise_reduction_image = apply_median_filter(image, kernel)
+    noise_reduction_image = apply_median_filter(image, 3)  # 3x3 median filter
     noise_reduction_time = time.time() - start_time
     save_image(noise_reduction_image, output_noise_reduction)
     print(f"Median noise-reduction filter processing time: {noise_reduction_time:.4f} seconds")
