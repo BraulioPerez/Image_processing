@@ -57,7 +57,7 @@ image_processing/
 └── requirements.txt        
 ```
 
-## mplementation Details
+## Implementation Details
 The project implements two main image processing filters:
 
 1. Gaussian Blur: Smooths the image using a Gaussian kernel
