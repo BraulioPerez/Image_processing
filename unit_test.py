@@ -1,4 +1,5 @@
 import time
+import pathlib
 from process_image_python import (
     read_image, 
     save_image, 
@@ -13,10 +14,10 @@ def test_filters() -> None:
     """Unit test to run all filters from one image input"""
 
     # Input/output paths
-    input_path = r"C:\Users\marit\OneDrive\Programming\UPY programming stuff\Programming Quarter 7 stuff\UPY High Performance Computing\EA2 Images Processing\image.jpeg"
-    output_sobel = "output_sobel.jpg"
-    output_gaussian = "output_gaussian.jpg"
-    output_noise_reduction = "output_noise_reduction.jpg"
+    input_path = str(pathlib.Path().resolve()) + "/image.jpeg"
+    output_sobel = "python/output_sobel.jpg"
+    output_gaussian = "python/output_gaussian.jpg"
+    output_noise_reduction = "python/output_noise_reduction.jpg"
     
     # Read the input image
     print("Reading image...")

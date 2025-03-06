@@ -1,5 +1,6 @@
 import time
 import numpy as np
+import pathlib
 from process_image_cython import (
     read_image,
     save_image,
@@ -9,14 +10,15 @@ from process_image_cython import (
     apply_median_filter
 )
 
+
 def test_filters():
     """Unit test to run all filters from one image input"""
 
     # Input/output paths
-    input_path = r"C:\Users\marit\OneDrive\Programming\UPY programming stuff\Programming Quarter 7 stuff\UPY High Performance Computing\EA2 Images Processing\image.jpeg"
-    output_sobel = "output_sobel_cython.jpg"
-    output_gaussian = "output_gaussian_cython.jpg"
-    output_noise_reduction = "output_noise_reduction_cython.jpg"
+    input_path = str(pathlib.Path().resolve()) + "/image.jpeg"
+    output_sobel = "cython/output_sobel_cython.jpg"
+    output_gaussian = "cython/output_gaussian_cython.jpg"
+    output_noise_reduction = "cython/output_noise_reduction_cython.jpg"
 
     # Read the input image
     print("Reading image...")

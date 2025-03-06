@@ -1,15 +1,17 @@
 # Image Processing Application
 
-A high-performance image processing application that implements Gaussian blur and Sobel edge detection filters in both Python and C++. This project demonstrates the performance differences between implementations in different programming languages.
+A high-performance image processing application that implements various image filters (Gaussian blur, Sobel edge detection, and Median filter) in multiple implementations: Python, NumPy, and Cython. This project demonstrates the performance differences between implementations in different programming paradigms.
 
 ## Features
-- Upload images in JPG/JPEG/PNG formats
-- Apply multiple filters in sequence:
-  - Gaussian blur filter
-  - Sobel edge detection
-  - Combined filters (Gaussian + Sobel)
-- Process images using either Python or C++ implementations
-- Performance measurement and comparison
+- Process images with multiple filter types:
+  - Gaussian blur filter (for smoothing)
+  - Sobel edge detection (for finding edges)
+  - Median filter (for noise reduction)
+- Compare performance across different implementations:
+  - Pure Python
+  - NumPy-accelerated Python
+  - Cython-accelerated implementation
+- Detailed performance measurements for benchmarking
 
 ## Team Members
 - Braulio Pérez
@@ -17,62 +19,127 @@ A high-performance image processing application that implements Gaussian blur an
 - Moises Carrillo
 - David Hernandez
 
+## Project Structure
+
+```
+image_processing/
+├── build/                        # Compiled files (generated)
+├── cython/                       # Output directory for Cython processed images
+├── numpy/                        # Output directory for NumPy processed images
+├── python/                       # Output directory for Python processed images
+├── image.jpeg                    # Sample input image
+├── process_image_cython.pyx      # Cython implementation source
+├── process_image_cython.c        # Generated C code (after Cython compilation)
+├── process_image_numpy.py        # NumPy implementation
+├── process_image_python.py       # Pure Python implementation
+├── setup.py                      # Cython build configuration
+├── test.py                       # Main test script
+├── unit_test_cython.py           # Tests for Cython implementation
+├── unit_test_numpy.py            # Tests for NumPy implementation
+├── unit_test_python.py           # Tests for Python implementation
+├── README.md                    
+└── requirements.txt              # Project dependencies
+```
+
 ## Installation
+
 1. Clone the repository
 2. Install dependencies:
+
 ```bash
+# Windows
 pip install -r requirements.txt
+
+# Unix/macOS
+pip3 install -r requirements.txt
+```
+
+3. Build the Cython extension:
+
+```bash
+# Windows
+python setup.py build_ext --inplace
+
+# Unix/macOS
+python3 setup.py build_ext --inplace
 ```
 
 ## Usage Instructions
-### Python Implementation
-To process an image using the Python implementation:
-
-```bash
-python process_image_python.py input_image.jpg output_image.jpg
-```
 
 ### Running Tests
-To run performance tests and generate sample outputs:
+
+To test a specific implementation:
 
 ```bash
-python unit_test.py
+# Windows
+python unit_test_python.py  # Pure Python
+python unit_test_numpy.py   # NumPy
+python unit_test_cython.py  # Cython
+
+# Unix/macOS
+python3 unit_test_python.py  # Pure Python
+python3 unit_test_numpy.py   # NumPy
+python3 unit_test_cython.py  # Cython
 ```
 
-This will generate three output images:
+Each test will generate output images in the corresponding implementation folder:
+- `**/output_sobel_*.jpg`: Image with Sobel edge detection
+- `**/output_gaussian_*.jpg`: Image with Gaussian blur
+- `**/output_noise_reduction_*.jpg`: Image with median filter for noise reduction
 
-- output_sobel.jpg: Image with Sobel edge detection
-- output_gaussian.jpg: Image with Gaussian blur
-- output_combined.jpg: Image with both filters applied
-
-The test will also display processing times for each operation in the console.
-
-## Project Structure
-
-```bash
-image_processing/
-├── process_image_python.py  # Python implementation
-├── unit_test.py            # Performance testing
-├── README.md              
-└── requirements.txt        
-```
+The tests will also display processing times for each operation in the console.
 
 ## Implementation Details
-The project implements two main image processing filters:
 
-1. Gaussian Blur: Smooths the image using a Gaussian kernel
-  - Configurable kernel size and sigma value
-  - Includes padding for edge handling
-2. Sobel Edge Detection: Detects edges using the Sobel operator
-  - Implements both X and Y direction gradients
-  - Combines gradients using magnitude calculation
+The project implements three main image processing filters:
+
+1. **Gaussian Blur**: Smooths the image using a Gaussian kernel
+   - Configurable kernel size and sigma value
+   - Includes padding for edge handling
+
+2. **Sobel Edge Detection**: Detects edges using the Sobel operator
+   - Implements both X and Y direction gradients
+   - Combines gradients using magnitude calculation
+
+3. **Median Filter**: Reduces noise by replacing each pixel with the median of neighboring pixels
+   - Uses a sliding window approach
+   - Configurable window size
 
 ## Performance Considerations
-- The Python implementation uses list comprehension and optimized matrix operations
-- Test results include timing measurements for each filter operation
-- Combined filter application (Gaussian + Sobel) demonstrates filter chaining
+
+- The **Pure Python** implementation uses list comprehension and basic loops
+- The **NumPy** implementation leverages vectorized operations for better performance
+- The **Cython** implementation compiles to C for maximum performance
+- Test results include timing measurements for each filter operation and implementation
+
+## Troubleshooting
+
+If you encounter an import error with the Cython module:
+
+1. Make sure you've properly built the Cython extension:
+   ```bash
+   # Windows
+   python setup.py build_ext --inplace
+   
+   # Unix/macOS
+   python3 setup.py build_ext --inplace
+   ```
+
+2. Check that you're importing the module correctly:
+   ```python
+   # Correct import
+   from process_image_cython import (
+       read_image,
+       save_image,
+       create_gaussian_kernel,
+       apply_filter,
+       apply_sobel,
+       apply_median_filter
+   )
+   ```
 
 ## Requirements
+
 - Python 3.6+
-- PIL (Python Imaging Library)
-- A compatible image file for processing
+- Required libraries listed in requirements.txt
+- A compatible image file for processing (JPEG/JPG/PNG)# ssh

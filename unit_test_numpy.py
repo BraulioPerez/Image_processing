@@ -1,4 +1,5 @@
 import time
+import pathlib
 from process_image_numpy import (
     read_image, 
     save_image, 
@@ -8,14 +9,16 @@ from process_image_numpy import (
     apply_median_filter
 )
 
+
+
 def test_filters() -> None:
     """Unit test to run all filters from one image input"""
 
     # Input/output paths
-    input_path = r"C:\Users\marit\OneDrive\Programming\UPY programming stuff\Programming Quarter 7 stuff\UPY High Performance Computing\EA2 Images Processing\image.jpeg"
-    output_sobel = "output_sobel_numpy.jpg"
-    output_gaussian = "output_gaussian_numpy.jpg"
-    output_noise_reduction = "output_noise_reduction_numpy.jpg"
+    input_path = str(pathlib.Path().resolve()) + "/image.jpeg"
+    output_sobel = "numpy/output_sobel_numpy.jpg"
+    output_gaussian = "numpy/output_gaussian_numpy.jpg"
+    output_noise_reduction = "numpy/output_noise_reduction_numpy.jpg"
     
     # Read the input image
     print("Reading image...")
